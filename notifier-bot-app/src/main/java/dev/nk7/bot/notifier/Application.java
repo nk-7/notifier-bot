@@ -10,10 +10,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.telegram.telegrambots.client.okhttp.OkHttpTelegramClient;
 import org.telegram.telegrambots.longpolling.TelegramBotsLongPollingApplication;
 import org.telegram.telegrambots.longpolling.util.LongPollingSingleThreadUpdateConsumer;
+import org.telegram.telegrambots.meta.api.methods.botapimethods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import org.telegram.telegrambots.meta.generics.TelegramClient;
 
 @SpringBootApplication
 @EnableConfigurationProperties(TelegramBotProperties.class)
@@ -30,6 +33,11 @@ public class Application {
     return botsApplication;
   }
 
+  @Bean
+  TelegramClient telegramClient(TelegramBotProperties telegramBotProperties) {
+    return new OkHttpTelegramClient(telegramBotProperties.token());
+  }
+
 
   @Bean
   ActorSystem<RootActor.Api> actorSystem() {
@@ -37,9 +45,18 @@ public class Application {
   }
 
   @Bean
-  FactoryBean<ActorRef<Update>> updatesRouterActor(ActorSystem<RootActor.Api> actorSystem) {
+  FactoryBean<ActorRef<BotApiMethod<?>>> telegramClientActor(ActorSystem<RootActor.Api> actorSystem, TelegramClient telegramClient) {
+    return new ActorFactoryBean<>(
+      actorSystem,
+      TelegramClientActor.create(telegramClient),
+      "telegram-client-actor"
+    );
+  }
+
+  @Bean
+  FactoryBean<ActorRef<Update>> updatesRouterActor(ActorSystem<RootActor.Api> actorSystem, ActorRef<BotApiMethod<?>> telegramClient) {
     return new ActorFactoryBean<>(actorSystem,
-      UpdatesRouterActor.create(),
+      UpdatesRouterActor.create(telegramClient),
       "update-router");
   }
 
