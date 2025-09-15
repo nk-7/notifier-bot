@@ -1,0 +1,93 @@
+[versions]
+spring-boot = "3.5.5"
+spring-cloud = "2025.0.0"
+slf4j = "2.0.17"
+logback = "1.5.18"
+junit = "5.13.4"
+assertj = "3.27.4"
+testcontainers = "1.21.3"
+jackson = "2.20.0"
+tinkoff = "1.30"
+vertx = "5.0.4"
+akka = "2.6.21"
+telegrambots = "9.1.0"
+
+
+[libraries]
+#BOMs
+bom-spring-boot = { module = "org.springframework.boot:spring-boot-dependencies", version.ref = "spring-boot" }
+bom-spring-cloud = { module = "org.springframework.cloud:spring-cloud-dependencies", version.ref = "spring-cloud" }
+bom-junit = { module = "org.junit:junit-bom", version.ref = "junit" }
+bom-testcontainers = { module = "org.testcontainers:testcontainers-bom", version.ref = "testcontainers" }
+bom-jackson = { module = "com.fasterxml.jackson:jackson-bom", version.ref = "jackson" }
+bom-akka = { module = "com.typesafe.akka:akka-bom_2.13", version.ref = "akka" }
+
+#Spring
+spring-boot-configuration-processor = { module = "org.springframework.boot:spring-boot-configuration-processor", version.ref = "spring-boot" }
+spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web" }
+spring-boot-starter-webflux = { module = "org.springframework.boot:spring-boot-starter-webflux" }
+spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
+spring-boot-starter-starter = { module = "org.springframework.boot:spring-boot-starter" }
+spring-boot-starter-data-neo4j = { module = "org.springframework.boot:spring-boot-starter-data-neo4j" }
+spring-data-r2dbc = { module = "org.springframework.data:spring-data-r2dbc" }
+spring-data-jdbc = { module = "org.springframework.data:spring-data-jdbc" }
+
+#Vert.x
+vertx-core = { module = "io.vertx:vertx-core", version.ref = "vertx" }
+vertx-web = { module = "io.vertx:vertx-web", version.ref = "vertx" }
+
+
+# Akka
+akka-actor-typed = { module = "com.typesafe.akka:akka-actor-typed_2.13" }
+akka-stream-typed = { module = "com.typesafe.akka:akka-stream-typed_2.13" }
+akka-testkit-typed = { module = "com.typesafe.akka:akka-actor-testkit-typed_2.13" }
+
+# Databases
+database-hikari = { module = "com.zaxxer:HikariCP" }
+database-liquibase = { module = "org.liquibase:liquibase-core" }
+database-h2 = { module = "com.h2database:h2" }
+
+# Telegram
+telegrambots-meta = { module = "org.telegram:telegrambots-meta", version.ref = "telegrambots" }
+telegrambots-longpolling = { module = "org.telegram:telegrambots-longpolling", version.ref = "telegrambots" }
+telegrambots-webhook = { module = "org.telegram:telegrambots-webhook", version.ref = "telegrambots" }
+telegrambots-client = { module = "org.telegram:telegrambots-client", version.ref = "telegrambots" }
+telegrambots-client-jetty-adapter = { module = "org.telegram:telegrambots-client-jetty-adapter", version.ref = "telegrambots" }
+telegrambots-springboot-longpolling-starter = { module = "org.telegram:telegrambots-springboot-longpolling-starter", version.ref = "telegrambots" }
+telegrambots-springboot-webhook-starter = { module = "org.telegram:telegrambots-springboot-webhook-starter", version.ref = "telegrambots" }
+telegrambots-extensions = { module = "org.telegram:telegrambots-extensions", version.ref = "telegrambots" }
+telegrambots-abilities = { module = "org.telegram:telegrambots-abilities", version.ref = "telegrambots" }
+telegrambots-test-reports = { module = "org.telegram:telegrambots-test-reports", version.ref = "telegrambots" }
+
+
+#Logging
+slf4j = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
+logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
+
+# Test
+assertj = { module = "org.assertj:assertj-core", version.ref = "assertj" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter" }
+junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine" }
+junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params" }
+junit-jupiter-launcher = { module = "org.junit.platform:junit-platform-launcher" }
+
+testcontainers = { module = "org.testcontainers:testcntainers" }
+testcontainers-r2dbc = { module = "org.testcontainers:r2dbc" }
+
+# Commons
+commons-lang3 = { module = "org.apache.commons:commons-lang3" }
+commons-text = { module = "org.apache.commons:commons-text" }
+
+#Tinkoff
+tinkoff-java-sdk-core = { module = "ru.tinkoff.piapi:java-sdk-core", version.ref = "tinkoff" }
+
+[plugins]
+spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
+
+[bundles]
+test = [
+  "assertj",
+  "junit-jupiter",
+  "junit-jupiter-engine",
+  "junit-jupiter-params"
+]
