@@ -1,3 +1,11 @@
 application:
   bot:
     token: secret
+  database:
+    driver: h2
+    protocol: file
+    host:
+    port:
+    username: notifier-bot
+    password: notifier-bot
+    database: r2dbc:h2:file//~/h2.db

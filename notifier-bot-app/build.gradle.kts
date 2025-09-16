@@ -4,6 +4,7 @@ plugins {
 dependencies {
 
   implementation(platform(libs.bom.spring.boot))
+
   implementation(libs.spring.boot.starter.web)
   implementation(platform(libs.bom.akka))
   annotationProcessor(libs.spring.boot.configuration.processor)
@@ -11,6 +12,8 @@ dependencies {
 
   implementation(libs.telegrambots.longpolling)
   implementation(libs.telegrambots.client)
+
+  implementation(libs.database.h2.r2dbc)
 
   compileOnly(libs.slf4j)
   runtimeOnly(libs.logback.classic)

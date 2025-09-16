@@ -46,6 +46,7 @@ akka-testkit-typed = { module = "com.typesafe.akka:akka-actor-testkit-typed_2.13
 database-hikari = { module = "com.zaxxer:HikariCP" }
 database-liquibase = { module = "org.liquibase:liquibase-core" }
 database-h2 = { module = "com.h2database:h2" }
+database-h2-r2dbc = { module = "io.r2dbc:r2dbc-h2" }
 
 # Telegram
 telegrambots-meta = { module = "org.telegram:telegrambots-meta", version.ref = "telegrambots" }

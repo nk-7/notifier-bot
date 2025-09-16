@@ -1,4 +1,4 @@
-package dev.nk7.bot.notifier;
+package dev.nk7.bot.notifier.actor;
 
 import akka.actor.typed.Behavior;
 import akka.actor.typed.javadsl.AbstractBehavior;
