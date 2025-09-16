@@ -17,3 +17,5 @@ dependencyResolutionManagement {
 
 include("notifier-bot-api")
 include("notifier-bot-app")
+
+include("notifier-bot-database")
