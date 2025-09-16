@@ -11,17 +11,20 @@ databaseChangeLog:
                   name: id
                   type: int
                   autoIncrement: true
+                  remarks: Первичный ключ.
                   constraints:
                     nullable: false
                     primaryKey: true
               - column:
                   name: chat_id
                   type: int
+                  remarks: ID чата в телеграмме.
                   constraints:
                     nullable: false
                     unique: true
               - column:
                   name: status
                   type: varchar(8)
+                  remarks: Статус чата.
                   constraints:
                     nullable: false
