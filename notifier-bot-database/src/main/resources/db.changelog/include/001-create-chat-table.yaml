@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: "Create table  chat."
+      author: Nikolay Kuleshov
+      changes:
+        - createTable:
+            tableName: chat
+            remarks: Таблица известных чатов.
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: chat_id
+                  type: int
+                  constraints:
+                    nullable: false
+                    unique: true
