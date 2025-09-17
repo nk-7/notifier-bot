@@ -13,8 +13,8 @@ import java.sql.SQLException;
 
 
 public record Migrator(String changelog, String jdbcUrl, String username, String password) {
-  void migrate() throws DbMigrationException {
-    try (Connection connection = DriverManager.getConnection(jdbcUrl)) {
+  public void migrate() throws DbMigrationException {
+    try (Connection connection = DriverManager.getConnection(jdbcUrl, username, password)) {
       final DatabaseFactory databaseFactory = DatabaseFactory.getInstance();
       final Database correctDatabaseImplementation = databaseFactory.findCorrectDatabaseImplementation(new JdbcConnection(connection));
       try (Liquibase liquibase = new Liquibase(changelog, new ClassLoaderResourceAccessor(), correctDatabaseImplementation);) {
