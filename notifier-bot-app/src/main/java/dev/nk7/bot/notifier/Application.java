@@ -72,49 +72,5 @@ public class Application {
     return updatesRouterActor::tell;
   }
 
-
-//  @Bean
-//  ConnectionFactory connectionFactory(DatabaseProperties databaseProperties) {
-//    final ConnectionFactoryOptions options = ConnectionFactoryOptions.builder()
-//      .option(ConnectionFactoryOptions.DRIVER, databaseProperties.driver())
-//      .option(ConnectionFactoryOptions.PROTOCOL, databaseProperties.protocol())
-////      .option(ConnectionFactoryOptions.HOST, databaseProperties.host())
-////      .option(ConnectionFactoryOptions.PORT, databaseProperties.port())
-//      .option(ConnectionFactoryOptions.USER, databaseProperties.username())
-//      .option(ConnectionFactoryOptions.PASSWORD, databaseProperties.password())
-//      .option(ConnectionFactoryOptions.DATABASE, databaseProperties.database())
-//      .build();
-//
-//    final ConnectionFactory connectionFactory = ConnectionFactories.find(options);
-//    connectionFactory.create().subscribe(new Subscriber<Connection>() {
-//                                           @Override
-//                                           public void onSubscribe(Subscription s) {
-//
-//                                           }
-//
-//                                           @Override
-//                                           public void onNext(Connection connection) {
-//                                             log.info("Соединение создано!");
-//                                             final Statement statement = connection.createStatement("select * from telegram_bot_updates");
-//                                             statement.execute();
-//                                           }
-//
-//                                           @Override
-//                                           public void onError(Throwable t) {
-//
-//                                           }
-//
-//                                           @Override
-//                                           public void onComplete() {
-//
-//                                           }
-//                                         }
-//
-//    );
-//
-//    return connectionFactory;
-//
-//  }
-
 }
 
