@@ -8,4 +8,9 @@ application:
     port:
     username: notifier-bot
     password: notifier-bot
-    database: r2dbc:h2:file//~/h2.db
+    database: ~/h2/notifier-bot
+
+logging:
+  level:
+    root: WARN
+    dev.nk7: DEBUG

@@ -1,10 +1,13 @@
 package dev.nk7.bot.notifier.repository;
 
-import dev.nk7.bot.notifier.model.Chat;
+import dev.nk7.bot.notifier.entities.Chat;
 
-public class ChatRepository {
+import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
-  public Chat save(Chat chat) {
-    return chat;
-  }
+public interface ChatRepository {
+  CompletableFuture<Chat> save(Chat chat);
+
+  CompletableFuture<Optional<Chat>> findByChatId(Long chatId);
+
 }

@@ -8,9 +8,9 @@ public record DatabaseProperties(
   String protocol,
   String host,
   Integer port,
+  String database,
   String username,
-  String password,
-  String database
+  String password
 ) {
 
 }
