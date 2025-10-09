@@ -7,6 +7,8 @@ import akka.actor.typed.SpawnProtocol;
 import dev.nk7.bot.notifier.actor.TelegramClientActor;
 import dev.nk7.bot.notifier.actor.UpdatesRouterActor;
 import dev.nk7.bot.notifier.core.ActorFactoryBean;
+import dev.nk7.bot.notifier.persistence.repository.ChatRepository;
+import dev.nk7.bot.notifier.persistence.repository.r2dbc.R2dbcChatRepository;
 import dev.nk7.bot.notifier.properties.DatabaseProperties;
 import dev.nk7.bot.notifier.properties.TelegramBotProperties;
 import dev.nk7.bot.notifier.service.ChatService;
@@ -97,6 +99,11 @@ public class Application {
       options.option(ConnectionFactoryOptions.PASSWORD, databaseProperties.password());
     }
     return ConnectionFactories.find(options.build());
+  }
+
+  @Bean
+  ChatRepository chatRepository(ConnectionFactory connectionFactory) {
+    return new R2dbcChatRepository(connectionFactory);
   }
 
 }

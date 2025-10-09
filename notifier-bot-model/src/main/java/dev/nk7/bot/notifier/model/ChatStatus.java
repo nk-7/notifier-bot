@@ -1,4 +1,4 @@
-package dev.nk7.bot.notifier.entities;
+package dev.nk7.bot.notifier.model;
 
 /**
  * Статус чата.

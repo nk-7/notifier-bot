@@ -4,17 +4,15 @@ plugins {
 dependencies {
 
   implementation(platform(libs.bom.spring.boot))
-
-  implementation(libs.spring.boot.starter.web)
   implementation(platform(libs.bom.akka))
+  implementation(project(":notifier-bot-persistence"))
+  implementation(project(":notifier-bot-model"))
+  implementation(libs.spring.boot.starter.web)
   annotationProcessor(libs.spring.boot.configuration.processor)
   implementation(libs.akka.actor.typed)
-
+  implementation(libs.database.h2.r2dbc)
   implementation(libs.telegrambots.longpolling)
   implementation(libs.telegrambots.client)
-
-  implementation(libs.database.h2.r2dbc)
-
   compileOnly(libs.slf4j)
   runtimeOnly(libs.logback.classic)
 
