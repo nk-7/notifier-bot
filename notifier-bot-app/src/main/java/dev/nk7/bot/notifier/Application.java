@@ -9,6 +9,10 @@ import dev.nk7.bot.notifier.actor.UpdatesRouterActor;
 import dev.nk7.bot.notifier.core.ActorFactoryBean;
 import dev.nk7.bot.notifier.properties.DatabaseProperties;
 import dev.nk7.bot.notifier.properties.TelegramBotProperties;
+import dev.nk7.bot.notifier.service.ChatService;
+import io.r2dbc.spi.ConnectionFactories;
+import io.r2dbc.spi.ConnectionFactory;
+import io.r2dbc.spi.ConnectionFactoryOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.FactoryBean;
@@ -61,15 +65,38 @@ public class Application {
   }
 
   @Bean
-  FactoryBean<ActorRef<Update>> updatesRouterActor(ActorSystem<SpawnProtocol.Command> actorSystem, ActorRef<BotApiMethod<?>> telegramClient) {
+  FactoryBean<ActorRef<Update>> updatesRouterActor(ActorSystem<SpawnProtocol.Command> actorSystem,
+                                                   ActorRef<BotApiMethod<?>> telegramClient,
+                                                   ChatService chatService) {
     return new ActorFactoryBean<>(actorSystem,
-      UpdatesRouterActor.create(telegramClient),
+      UpdatesRouterActor.create(telegramClient, chatService),
       "update-router");
   }
 
   @Bean
   LongPollingSingleThreadUpdateConsumer updateConsumer(ActorRef<Update> updatesRouterActor) {
     return updatesRouterActor::tell;
+  }
+
+  @Bean
+  ConnectionFactory connectionFactory(DatabaseProperties databaseProperties) {
+    final ConnectionFactoryOptions.Builder options = ConnectionFactoryOptions.builder()
+      .option(ConnectionFactoryOptions.DRIVER, databaseProperties.driver())
+      .option(ConnectionFactoryOptions.PROTOCOL, databaseProperties.protocol())
+      .option(ConnectionFactoryOptions.HOST, databaseProperties.host())
+      .option(ConnectionFactoryOptions.DATABASE, databaseProperties.database());
+    if (databaseProperties.port() != null) {
+      options.option(ConnectionFactoryOptions.PORT, databaseProperties.port());
+    }
+
+
+    if (databaseProperties.username() != null) {
+      options.option(ConnectionFactoryOptions.USER, databaseProperties.username());
+    }
+    if (databaseProperties.password() != null) {
+      options.option(ConnectionFactoryOptions.PASSWORD, databaseProperties.password());
+    }
+    return ConnectionFactories.find(options.build());
   }
 
 }

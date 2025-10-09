@@ -1,9 +1,11 @@
-package dev.nk7.bot.notifier.model;
+package dev.nk7.bot.notifier.entities;
 
 
 public record Chat(
   Long id,
   Long chatId,
+  String title,
+  String type,
   ChatStatus status
 ) {
 }

@@ -22,4 +22,6 @@ dependencies {
   testImplementation(libs.junit.jupiter)
   testImplementation(project(":notifier-bot-database"))
   testRuntimeOnly(libs.junit.jupiter.launcher)
+  testImplementation(libs.assertj)
+
 }
