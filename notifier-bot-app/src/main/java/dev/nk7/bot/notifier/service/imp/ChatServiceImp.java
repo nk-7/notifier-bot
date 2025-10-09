@@ -1,12 +1,15 @@
 package dev.nk7.bot.notifier.service.imp;
 
-import dev.nk7.bot.notifier.entities.Chat;
-import dev.nk7.bot.notifier.entities.ChatStatus;
-import dev.nk7.bot.notifier.repository.ChatRepository;
+import dev.nk7.bot.notifier.model.Chat;
+import dev.nk7.bot.notifier.model.ChatStatus;
+import dev.nk7.bot.notifier.persistence.repository.ChatRepository;
+import dev.nk7.bot.notifier.persistence.table.ChatNewRow;
+import dev.nk7.bot.notifier.persistence.table.ChatRow;
 import dev.nk7.bot.notifier.service.ChatService;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 @Service
@@ -20,10 +23,33 @@ public class ChatServiceImp implements ChatService {
 
   @Override
   public CompletableFuture<Chat> newChat(Long chatId, String type, String title) {
-    return chatRepository.findByChatId(chatId)
+    final CompletableFuture<Optional<ChatRow>> byChatId = chatRepository.findByChatId(chatId);
+
+    return byChatId
       .thenComposeAsync(o ->
-        o.map(CompletableFuture::completedFuture)
-          .orElseGet(() -> chatRepository.save(new Chat(null, chatId, title, type, ChatStatus.NEW)))
+        o.map(row -> CompletableFuture.completedFuture(map(row)))
+          .orElseGet(() -> saveNew(chatId, title, type, ChatStatus.NEW.name()))
       );
   }
+
+  private CompletableFuture<Chat> saveNew(Long chatId, String type, String title, String status) {
+    return chatRepository.saveNew(new ChatNewRow(chatId, type, title, status))
+      .thenApply(row -> new Chat(row.id(), row.chatId(), row.title(), row.type(), map(row.status())));
+  }
+
+
+  private Chat map(ChatRow chatRow) {
+    return new Chat(
+      chatRow.id(),
+      chatRow.chatId(),
+      chatRow.title(),
+      chatRow.type(),
+      map(chatRow.status())
+    );
+  }
+
+  private ChatStatus map(String chatStatus) {
+    return ChatStatus.valueOf(chatStatus);
+  }
+
 }

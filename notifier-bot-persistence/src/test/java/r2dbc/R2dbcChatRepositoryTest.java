@@ -1,8 +1,9 @@
-package dev.nk7.bot.notifier.repository.r2dbc;
+package r2dbc;
 
 import dev.nk7.bot.notifier.database.Migrator;
-import dev.nk7.bot.notifier.entities.Chat;
-import dev.nk7.bot.notifier.entities.ChatStatus;
+import dev.nk7.bot.notifier.persistence.repository.r2dbc.R2dbcChatRepository;
+import dev.nk7.bot.notifier.persistence.table.ChatNewRow;
+import dev.nk7.bot.notifier.persistence.table.ChatRow;
 import io.r2dbc.h2.H2ConnectionFactory;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -31,16 +32,16 @@ class R2dbcChatRepositoryTest {
   }
 
   @Test
-  void saveAndFindByChatId() throws ExecutionException, InterruptedException {
-    final Chat newChat = new Chat(null, 123L, null, "private", ChatStatus.NEW);
-    final Chat savedChat = chatRepository.save(newChat).get();
-    final Optional<Chat> found = chatRepository.findByChatId(savedChat.chatId()).get();
+  void saveNewAndFindByChatId() throws ExecutionException, InterruptedException {
+    final ChatNewRow newRow = new ChatNewRow(123L, null, "private", "NEW");
+    final ChatRow savedChat = chatRepository.saveNew(newRow).get();
+    final Optional<ChatRow> found = chatRepository.findByChatId(savedChat.chatId()).get();
     Assertions.assertThat(found).isNotEmpty().contains(savedChat);
   }
 
   @Test
   void findUnexistentChatId() throws ExecutionException, InterruptedException {
-    final Optional<Chat> found = chatRepository.findByChatId(-1L).get();
+    final Optional<ChatRow> found = chatRepository.findByChatId(-1L).get();
     Assertions.assertThat(found).isEmpty();
 
   }
