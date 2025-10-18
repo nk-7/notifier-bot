@@ -22,7 +22,7 @@ subprojects {
   apply {
     plugin("java")
   }
-  val javaVersion = 21
+  val javaVersion = 25
   tasks {
     compileJava {
       options.compilerArgs.add("-parameters")

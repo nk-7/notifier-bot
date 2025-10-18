@@ -11,6 +11,8 @@ tinkoff = "1.30"
 vertx = "5.0.4"
 akka = "2.6.21"
 telegrambots = "9.1.0"
+disruptor = "4.0.0"
+rocksdb = "10.2.1"
 
 
 [libraries]
@@ -47,6 +49,7 @@ database-hikari = { module = "com.zaxxer:HikariCP" }
 database-liquibase = { module = "org.liquibase:liquibase-core" }
 database-h2 = { module = "com.h2database:h2" }
 database-h2-r2dbc = { module = "io.r2dbc:r2dbc-h2" }
+database-rocksdb = { module = "org.rocksdb:rocksdbjni", version.ref = "rocksdb" }
 
 # Telegram
 telegrambots-meta = { module = "org.telegram:telegrambots-meta", version.ref = "telegrambots" }
@@ -64,6 +67,12 @@ telegrambots-test-reports = { module = "org.telegram:telegrambots-test-reports",
 #Logging
 slf4j = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
 logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
+
+# Jackson
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind" }
+
+disruptor = { module = "com.lmax:disruptor", version.ref = "disruptor" }
+
 
 # Test
 assertj = { module = "org.assertj:assertj-core", version.ref = "assertj" }
