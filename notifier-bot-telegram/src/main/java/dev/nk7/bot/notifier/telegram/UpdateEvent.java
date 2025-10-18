@@ -1,4 +1,4 @@
-package dev.nk7.bot.notifier.engine;
+package dev.nk7.bot.notifier.telegram;
 
 import org.telegram.telegrambots.meta.api.objects.Update;
 

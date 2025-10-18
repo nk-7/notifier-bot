@@ -1,11 +1,11 @@
-package dev.nk7.bot.notifier.config;
+package dev.nk7.bot.notifier.infra;
 
 import com.lmax.disruptor.BlockingWaitStrategy;
 import com.lmax.disruptor.EventHandler;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
 import com.lmax.disruptor.util.DaemonThreadFactory;
-import dev.nk7.bot.notifier.engine.UpdateEvent;
+import dev.nk7.bot.notifier.telegram.UpdateEvent;
 import org.springframework.context.annotation.Bean;
 
 import java.util.List;
