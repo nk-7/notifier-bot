@@ -1,4 +1,4 @@
-package dev.nk7.bot.notifier.engine;
+package dev.nk7.bot.notifier.telegram;
 
 import org.telegram.telegrambots.meta.api.objects.Update;
 
@@ -14,8 +14,7 @@ public abstract class CommandHandler extends UpdateHandler {
   }
 
   @Override
-  protected boolean filter(UpdateEvent event) {
-    final Update update = event.getUpdate();
+  protected boolean filter(Update update) {
     return update.hasMessage() && update.getMessage().isCommand() && update.getMessage().getText().startsWith(command);
   }
 

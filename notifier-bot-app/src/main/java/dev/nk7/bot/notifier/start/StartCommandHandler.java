@@ -1,11 +1,8 @@
-package dev.nk7.bot.notifier.handler;
+package dev.nk7.bot.notifier.start;
 
 
 import dev.nk7.bot.notifier.core.port.in.AddNewChatUseCase;
-import dev.nk7.bot.notifier.engine.CommandHandler;
-import dev.nk7.bot.notifier.engine.UpdateEvent;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import dev.nk7.bot.notifier.telegram.CommandHandler;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
@@ -13,8 +10,6 @@ import java.util.Objects;
 
 @Component
 public class StartCommandHandler extends CommandHandler {
-  private static final Logger log = LoggerFactory.getLogger(StartCommandHandler.class);
-
 
   private final AddNewChatUseCase addNewChatUseCase;
 
@@ -24,8 +19,7 @@ public class StartCommandHandler extends CommandHandler {
   }
 
   @Override
-  protected void handle(UpdateEvent event) {
-    final Update update = event.getUpdate();
+  protected void handle(Update update) {
     final Long chatId = update.getMessage().getChatId();
     final String title = update.getMessage().getChat().getTitle();
     final String type = update.getMessage().getChat().getType();

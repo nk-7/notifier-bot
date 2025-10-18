@@ -1,9 +1,10 @@
-package dev.nk7.bot.notifier.config;
+package dev.nk7.bot.notifier.infra;
 
 import com.lmax.disruptor.RingBuffer;
 import com.lmax.disruptor.dsl.Disruptor;
-import dev.nk7.bot.notifier.engine.UpdateEvent;
-import dev.nk7.bot.notifier.config.properties.TelegramBotProperties;
+import dev.nk7.bot.notifier.infra.properties.TelegramBotProperties;
+import dev.nk7.bot.notifier.telegram.MessageService;
+import dev.nk7.bot.notifier.telegram.UpdateEvent;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,4 +39,10 @@ public class TelegramConfig {
       });
     };
   }
+
+  @Bean
+  MessageService messageService(TelegramClient telegramClient) {
+    return new dev.nk7.bot.notifier.telegram.MessageService(telegramClient);
+  }
+
 }

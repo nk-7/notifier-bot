@@ -1,4 +1,4 @@
-package dev.nk7.bot.notifier.config.properties;
+package dev.nk7.bot.notifier.infra.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

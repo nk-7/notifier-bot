@@ -1,6 +1,6 @@
-package dev.nk7.bot.notifier.config;
+package dev.nk7.bot.notifier.infra;
 
-import dev.nk7.bot.notifier.config.properties.RocksDbProperties;
+import dev.nk7.bot.notifier.infra.properties.RocksDbProperties;
 import dev.nk7.bot.notifier.core.port.out.ChatRepository;
 import dev.nk7.bot.notifier.persistence.RocksChatRepository;
 import dev.nk7.bot.notifier.persistence.rocksdb.Entities;
