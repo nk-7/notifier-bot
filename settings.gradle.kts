@@ -15,8 +15,6 @@ dependencyResolutionManagement {
   }
 }
 
+include("notifier-bot-core")
 include("notifier-bot-app")
-include("notifier-bot-database")
-
 include("notifier-bot-persistence")
-include("notifier-bot-model")
