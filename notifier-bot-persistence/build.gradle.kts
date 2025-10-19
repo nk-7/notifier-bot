@@ -10,6 +10,8 @@ dependencies {
   implementation(project(":notifier-bot-core"))
   implementation(libs.database.rocksdb)
 
+  compileOnly(libs.slf4j)
+
   testImplementation(platform(libs.bom.junit))
   testImplementation(libs.junit.jupiter)
   testImplementation(libs.assertj)
