@@ -7,7 +7,12 @@ import dev.nk7.bot.notifier.persistence.rocksdb.Rocks;
 import dev.nk7.bot.notifier.persistence.rocksdb.RocksRepository;
 import dev.nk7.bot.notifier.persistence.serialization.Serializer;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class RocksChatRepository extends RocksRepository<Entities> implements ChatRepository {
 
@@ -27,6 +32,16 @@ public class RocksChatRepository extends RocksRepository<Entities> implements Ch
     final byte[] key = serializer.toBytes(chatId);
     return Optional.ofNullable(rocks.get(Entities.CHAT, key))
       .map(bytes -> serializer.fromBytes(bytes, Chat.class));
+  }
 
+  @Override
+  public Set<Chat> getFiltered(Predicate<Chat> filter) {
+    final List<byte[]> all = rocks.getAll(Entities.CHAT);
+    if (all == null || all.isEmpty()) {
+      return Collections.emptySet();
+    }
+    return all.stream()
+      .map(bytes -> serializer.fromBytes(bytes, Chat.class))
+      .collect(Collectors.toUnmodifiableSet());
   }
 }

@@ -65,4 +65,17 @@ public class Rocks<T extends Enum<T>> {
       throw new PersistenceException("Ошибка получения из Column Family " + map, e);
     }
   }
+
+  public List<byte[]> getAll(T map) {
+    final ColumnFamilyHandle handle = handles.get(map);
+    try (RocksIterator iterator = rocksDB.newIterator(handle)) {
+      final List<byte[]> list = new ArrayList<>();
+      iterator.seekToFirst();
+      while (iterator.isValid()) {
+        list.add(iterator.value());
+        iterator.next();
+      }
+      return list;
+    }
+  }
 }
