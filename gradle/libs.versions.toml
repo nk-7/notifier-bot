@@ -6,13 +6,15 @@ logback = "1.5.18"
 junit = "5.13.4"
 assertj = "3.27.4"
 testcontainers = "1.21.3"
-jackson = "2.20.0"
+jackson = "2.17.2"
 tinkoff = "1.30"
 vertx = "5.0.4"
 akka = "2.6.21"
 telegrambots = "9.1.0"
 disruptor = "4.0.0"
 rocksdb = "10.2.1"
+jetty = "12.1.1"
+javalin = "6.7.0"
 
 
 [libraries]
@@ -43,6 +45,10 @@ vertx-web = { module = "io.vertx:vertx-web", version.ref = "vertx" }
 akka-actor-typed = { module = "com.typesafe.akka:akka-actor-typed_2.13" }
 akka-stream-typed = { module = "com.typesafe.akka:akka-stream-typed_2.13" }
 akka-testkit-typed = { module = "com.typesafe.akka:akka-actor-testkit-typed_2.13" }
+
+jetty-server = { module = "org.eclipse.jetty:jetty-server", version.ref = "jetty" }
+
+javalin = { module = "io.javalin:javalin", version.ref = "javalin" }
 
 # Databases
 database-hikari = { module = "com.zaxxer:HikariCP" }

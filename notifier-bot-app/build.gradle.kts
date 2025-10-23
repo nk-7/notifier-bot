@@ -7,10 +7,12 @@ dependencies {
   implementation(project(":notifier-bot-persistence"))
   implementation(project(":notifier-bot-telegram"))
   implementation(project(":notifier-bot-api"))
-  implementation(libs.spring.boot.starter.web)
+  implementation(libs.spring.boot.starter.starter)
   annotationProcessor(libs.spring.boot.configuration.processor)
   implementation(libs.telegrambots.longpolling)
   implementation(libs.telegrambots.client)
+
+  implementation(libs.javalin)
   compileOnly(libs.slf4j)
   runtimeOnly(libs.logback.classic)
 
