@@ -1,6 +1,7 @@
 package dev.nk7.bot.notifier.core.model;
 
 
+import java.beans.Transient;
 import java.util.Objects;
 import java.util.Set;
 
@@ -24,6 +25,7 @@ public record Chat(
     return false;
   }
 
+  @Transient
   public boolean isApproved() {
     return status == ChatStatus.APPROVED;
   }

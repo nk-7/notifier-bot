@@ -42,6 +42,7 @@ public class RocksChatRepository extends RocksRepository<Entities> implements Ch
     }
     return all.stream()
       .map(bytes -> serializer.fromBytes(bytes, Chat.class))
+      .filter(filter)
       .collect(Collectors.toUnmodifiableSet());
   }
 }

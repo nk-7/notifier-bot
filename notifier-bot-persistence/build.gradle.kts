@@ -3,9 +3,7 @@ plugins {
 }
 
 dependencies {
-
-  implementation(platform(libs.bom.spring.boot))
-
+  implementation(platform(libs.bom.jackson))
   implementation(libs.jackson.databind)
   implementation(project(":notifier-bot-core"))
   implementation(libs.database.rocksdb)

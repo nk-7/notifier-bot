@@ -15,6 +15,8 @@ disruptor = "4.0.0"
 rocksdb = "10.2.1"
 jetty = "12.1.1"
 javalin = "6.7.0"
+commons-configuration2 = "2.12.0"
+snakeyaml = "2.5"
 
 
 [libraries]
@@ -49,6 +51,11 @@ akka-testkit-typed = { module = "com.typesafe.akka:akka-actor-testkit-typed_2.13
 jetty-server = { module = "org.eclipse.jetty:jetty-server", version.ref = "jetty" }
 
 javalin = { module = "io.javalin:javalin", version.ref = "javalin" }
+
+
+commons-configuration = { module = "org.apache.commons:commons-configuration2", version.ref = "commons-configuration2" }
+
+snakeyaml = { module = "org.yaml:snakeyaml", version.ref = "snakeyaml" }
 
 # Databases
 database-hikari = { module = "com.zaxxer:HikariCP" }
