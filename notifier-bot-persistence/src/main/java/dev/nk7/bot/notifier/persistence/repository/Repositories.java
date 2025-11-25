@@ -1,8 +1,7 @@
 package dev.nk7.bot.notifier.persistence.repository;
 
-import dev.nk7.bot.notifier.core.port.out.ChatRepository;
-import dev.nk7.bot.notifier.core.port.out.NotificationRepository;
-import dev.nk7.bot.notifier.persistence.rocksdb.Entities;
+import dev.nk7.bot.notifier.core.port.out.repository.ChatRepository;
+import dev.nk7.bot.notifier.core.port.out.repository.NotificationRepository;
 import dev.nk7.bot.notifier.persistence.rocksdb.Rocks;
 import dev.nk7.bot.notifier.persistence.serialization.JacksonSerializer;
 

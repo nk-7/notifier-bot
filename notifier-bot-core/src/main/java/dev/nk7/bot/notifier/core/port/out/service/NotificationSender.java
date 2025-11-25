@@ -1,4 +1,4 @@
-package dev.nk7.bot.notifier.core.port.out;
+package dev.nk7.bot.notifier.core.port.out.service;
 
 import dev.nk7.bot.notifier.core.model.Chat;
 import dev.nk7.bot.notifier.core.model.Notification;

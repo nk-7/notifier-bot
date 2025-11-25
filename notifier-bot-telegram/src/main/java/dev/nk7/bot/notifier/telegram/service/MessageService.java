@@ -7,7 +7,7 @@ import org.telegram.telegrambots.meta.generics.TelegramClient;
 
 import java.util.Objects;
 
-public class MessageService implements dev.nk7.bot.notifier.core.port.out.MessageService {
+public class MessageService implements dev.nk7.bot.notifier.core.port.out.service.MessageService {
 
   private final TelegramClient telegramClient;
 

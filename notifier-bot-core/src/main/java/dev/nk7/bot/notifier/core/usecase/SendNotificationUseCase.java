@@ -1,8 +1,8 @@
 package dev.nk7.bot.notifier.core.usecase;
 
 import dev.nk7.bot.notifier.core.model.Chat;
-import dev.nk7.bot.notifier.core.port.out.ChatRepository;
-import dev.nk7.bot.notifier.core.port.out.MessageService;
+import dev.nk7.bot.notifier.core.port.out.repository.ChatRepository;
+import dev.nk7.bot.notifier.core.port.out.service.MessageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
