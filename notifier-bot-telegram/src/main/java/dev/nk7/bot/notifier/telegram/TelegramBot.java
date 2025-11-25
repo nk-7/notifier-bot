@@ -33,6 +33,7 @@ public class TelegramBot {
 
 
   public void start() {
+    log.info("Starting TelegramBot");
     disruptor.start();
     try {
       if (!botsApplication.isRunning()) {

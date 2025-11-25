@@ -9,10 +9,13 @@ import dev.nk7.bot.notifier.persistence.rocksdb.RocksProperties;
 import dev.nk7.bot.notifier.telegram.TelegramBot;
 import dev.nk7.bot.notifier.telegram.service.MessageService;
 import io.javalin.Javalin;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.client.okhttp.OkHttpTelegramClient;
 import org.telegram.telegrambots.meta.generics.TelegramClient;
 
 public class Application {
+  private static final Logger log = LoggerFactory.getLogger(Application.class);
 
 
   public static void main(String[] args) throws Exception {
@@ -32,9 +35,10 @@ public class Application {
     final StartCommandHandler startCommandHandler = new StartCommandHandler(new AddNewChatUseCase(rocks.repos().chatRepository(), messageService));
     final TelegramBot telegramBot = new TelegramBot(applicationProperties.getTelegramToken(), startCommandHandler);
     telegramBot.start();
+    log.info("Starting REST API");
     javalin.start(applicationProperties.getHttPort());
-
-
+    Runtime.getRuntime().addShutdownHook(new Thread(javalin::stop));
+    log.info("Application started!");
   }
 
 }

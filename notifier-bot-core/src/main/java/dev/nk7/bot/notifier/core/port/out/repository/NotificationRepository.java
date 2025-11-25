@@ -4,6 +4,5 @@ import dev.nk7.bot.notifier.core.model.Notification;
 
 public interface NotificationRepository {
 
-
   void save(Notification notification);
 }
