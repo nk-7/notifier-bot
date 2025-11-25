@@ -1,4 +1,4 @@
-package dev.nk7.bot.notifier.persistence;
+package dev.nk7.bot.notifier.persistence.repository;
 
 import dev.nk7.bot.notifier.core.model.Chat;
 import dev.nk7.bot.notifier.core.port.out.ChatRepository;
@@ -14,9 +14,9 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class RocksChatRepository extends RocksRepository<Entities> implements ChatRepository {
+public class RocksChatRepository extends RocksRepository implements ChatRepository {
 
-  public RocksChatRepository(Rocks<Entities> rocks, Serializer serializer) {
+  public RocksChatRepository(Rocks rocks, Serializer serializer) {
     super(rocks, serializer);
   }
 

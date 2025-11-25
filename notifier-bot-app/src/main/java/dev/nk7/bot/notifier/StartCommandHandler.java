@@ -2,7 +2,7 @@ package dev.nk7.bot.notifier;
 
 
 import dev.nk7.bot.notifier.core.port.in.AddNewChatUseCase;
-import dev.nk7.bot.notifier.telegram.CommandHandler;
+import dev.nk7.bot.notifier.telegram.handler.CommandHandler;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.util.Objects;

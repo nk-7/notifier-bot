@@ -1,4 +1,4 @@
-package dev.nk7.bot.notifier.persistence;
+package dev.nk7.bot.notifier.persistence.repository;
 
 import dev.nk7.bot.notifier.core.model.Notification;
 import dev.nk7.bot.notifier.core.port.out.NotificationRepository;
@@ -7,9 +7,9 @@ import dev.nk7.bot.notifier.persistence.rocksdb.Rocks;
 import dev.nk7.bot.notifier.persistence.rocksdb.RocksRepository;
 import dev.nk7.bot.notifier.persistence.serialization.Serializer;
 
-public class RocksNotificationRepository extends RocksRepository<Entities> implements NotificationRepository {
+public class RocksNotificationRepository extends RocksRepository implements NotificationRepository {
 
-  public RocksNotificationRepository(Rocks<Entities> rocks, Serializer serializer) {
+  public RocksNotificationRepository(Rocks rocks, Serializer serializer) {
     super(rocks, serializer);
   }
 

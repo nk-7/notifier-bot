@@ -1,5 +1,6 @@
 package dev.nk7.bot.notifier.persistence.rocksdb;
 
+import dev.nk7.bot.notifier.persistence.repository.Repositories;
 import org.rocksdb.*;
 
 import java.util.ArrayList;
@@ -7,16 +8,18 @@ import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.List;
 
-public class Rocks<T extends Enum<T>> {
+public class Rocks {
   static {
     RocksDB.loadLibrary();
   }
 
   private final RocksDB rocksDB;
-  private final EnumMap<T, ColumnFamilyHandle> handles;
+  private final EnumMap<Entities, ColumnFamilyHandle> handles;
 
-  public Rocks(RocksProperties props, Class<T> mapsType) {
-    this.handles = new EnumMap<>(mapsType);
+  private final Repositories repositories;
+
+  public Rocks(RocksProperties props) {
+    this.handles = new EnumMap<>(Entities.class);
     final DBOptions dbOptions = new DBOptions();
     dbOptions.setCreateIfMissing(true);
     dbOptions.setCreateMissingColumnFamilies(true);
@@ -25,7 +28,7 @@ public class Rocks<T extends Enum<T>> {
     final List<ColumnFamilyDescriptor> descriptors = new ArrayList<>();
     descriptors.add(new ColumnFamilyDescriptor(RocksDB.DEFAULT_COLUMN_FAMILY));
 
-    final T[] enumConstants = mapsType.getEnumConstants();
+    final Entities[] enumConstants = Entities.values();
     Arrays.stream(enumConstants)
       .map(c -> c.name().getBytes())
       .map(ColumnFamilyDescriptor::new)
@@ -46,9 +49,10 @@ public class Rocks<T extends Enum<T>> {
       final ColumnFamilyHandle handle = handlesTmp.get(i);
       handles.put(enumConstants[i - 1], handle);
     }
+    this.repositories = new Repositories(this);
   }
 
-  public void put(T map, byte[] key, byte[] value) {
+  public void put(Entities map, byte[] key, byte[] value) {
     final ColumnFamilyHandle handle = handles.get(map);
     try {
       rocksDB.put(handle, key, value);
@@ -57,7 +61,7 @@ public class Rocks<T extends Enum<T>> {
     }
   }
 
-  public byte[] get(T map, byte[] key) {
+  public byte[] get(Entities map, byte[] key) {
     final ColumnFamilyHandle handle = handles.get(map);
     try {
       return rocksDB.get(handle, key);
@@ -66,7 +70,7 @@ public class Rocks<T extends Enum<T>> {
     }
   }
 
-  public List<byte[]> getAll(T map) {
+  public List<byte[]> getAll(Entities map) {
     final ColumnFamilyHandle handle = handles.get(map);
     try (RocksIterator iterator = rocksDB.newIterator(handle)) {
       final List<byte[]> list = new ArrayList<>();
@@ -78,4 +82,9 @@ public class Rocks<T extends Enum<T>> {
       return list;
     }
   }
+
+  public Repositories repos(){
+    return repositories;
+  }
+
 }

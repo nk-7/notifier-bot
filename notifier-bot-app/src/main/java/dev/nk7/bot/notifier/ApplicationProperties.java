@@ -20,7 +20,6 @@ public class ApplicationProperties {
       yamlConfiguration.read(applicationYaml);
       config.addConfiguration(yamlConfiguration);
     }
-
     config.addConfiguration(new SystemConfiguration());
     config.addConfiguration(new EnvironmentConfiguration());
   }

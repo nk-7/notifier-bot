@@ -1,5 +1,6 @@
-package dev.nk7.bot.notifier.telegram;
+package dev.nk7.bot.notifier.telegram.service;
 
+import dev.nk7.bot.notifier.telegram.TelegramException;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.generics.TelegramClient;

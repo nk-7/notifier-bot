@@ -1,4 +1,4 @@
-package dev.nk7.bot.notifier.telegram;
+package dev.nk7.bot.notifier.telegram.handler;
 
 import com.lmax.disruptor.EventHandler;
 import org.telegram.telegrambots.meta.api.objects.Update;
