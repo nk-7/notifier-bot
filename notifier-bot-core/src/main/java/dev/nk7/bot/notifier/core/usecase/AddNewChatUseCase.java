@@ -32,6 +32,7 @@ public class AddNewChatUseCase implements dev.nk7.bot.notifier.core.port.in.AddN
       messageService.send(chatId.toString(), "Бот уже знает о Вас.");
       return chat.get();
     }
+    //todo новый чат должен создаваться неапрувнутым!!! Это сделано для тестирования, надо изменить это.
     final Chat newChat = new Chat(chatId, title, type, ChatStatus.APPROVED, Collections.emptySet());
     chatRepository.save(newChat);
     log.debug("Created new chat with id '{}'.", chatId);
