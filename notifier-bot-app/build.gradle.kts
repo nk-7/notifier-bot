@@ -1,6 +1,3 @@
-plugins {
-  alias(libs.plugins.spring.boot)
-}
 dependencies {
   implementation(project(":notifier-bot-core"))
   implementation(project(":notifier-bot-persistence"))
