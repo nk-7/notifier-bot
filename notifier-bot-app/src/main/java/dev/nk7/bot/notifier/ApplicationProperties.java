@@ -14,14 +14,14 @@ public class ApplicationProperties {
   private final CompositeConfiguration config = new CompositeConfiguration();
 
   public ApplicationProperties() throws ConfigurationException {
+    config.addConfiguration(new EnvironmentConfiguration());
+    config.addConfiguration(new SystemConfiguration());
     final InputStream applicationYaml = Thread.currentThread().getContextClassLoader().getResourceAsStream(APPLICATION_YAML);
     if (applicationYaml != null) {
       final YAMLConfiguration yamlConfiguration = new YAMLConfiguration();
       yamlConfiguration.read(applicationYaml);
       config.addConfiguration(yamlConfiguration);
     }
-    config.addConfiguration(new SystemConfiguration());
-    config.addConfiguration(new EnvironmentConfiguration());
   }
 
 
