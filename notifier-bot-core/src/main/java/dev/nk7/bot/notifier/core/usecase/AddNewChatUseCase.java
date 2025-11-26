@@ -28,12 +28,11 @@ public class AddNewChatUseCase implements dev.nk7.bot.notifier.core.port.in.AddN
   public Chat addNewChat(Long chatId, String title, String type) {
     final Optional<Chat> chat = chatRepository.findByChatId(chatId);
     if (chat.isPresent()) {
-      log.debug("Chat with id '{}' already exists", chatId);
+      log.debug("Чат с ID = '{}' уже существует.", chatId);
       messageService.send(chatId.toString(), "Бот уже знает о Вас.");
       return chat.get();
     }
-    //todo новый чат должен создаваться неапрувнутым!!! Это сделано для тестирования, надо изменить это.
-    final Chat newChat = new Chat(chatId, title, type, ChatStatus.APPROVED, Collections.emptySet());
+    final Chat newChat = new Chat(chatId, title, type, ChatStatus.NEW, Collections.emptySet());
     chatRepository.save(newChat);
     log.debug("Created new chat with id '{}'.", chatId);
     messageService.send(chatId.toString(), "Добро пожаловать в бот для получения уведомлений!");

@@ -13,6 +13,7 @@ public record Chat(
   Set<String> subscriptions
 ) {
 
+  @Transient
   public boolean subscribed(Set<String> tags) {
     if (subscriptions.isEmpty() || tags.isEmpty()) {
       return false;
@@ -28,6 +29,11 @@ public record Chat(
   @Transient
   public boolean isApproved() {
     return status == ChatStatus.APPROVED;
+  }
+
+
+  public Chat withStatus(ChatStatus newStatus) {
+    return new Chat(chatId, title, type, newStatus, subscriptions);
   }
 
   @Override

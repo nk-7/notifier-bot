@@ -2,7 +2,10 @@ package dev.nk7.bot.notifier.modules;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import dev.nk7.bot.notifier.api.ChangeChatStatusRequest;
+import dev.nk7.bot.notifier.api.ChangeChatStatusResponse;
 import dev.nk7.bot.notifier.api.SendNotificationRequest;
+import dev.nk7.bot.notifier.core.model.Chat;
 import io.javalin.Javalin;
 import io.javalin.json.JavalinJackson;
 import io.javalin.json.JsonMapper;
@@ -10,7 +13,6 @@ import io.javalin.json.JsonMapper;
 import java.util.Objects;
 
 class RestApiModuleImpl implements RestApiModule {
-
 
   private final UseCasesModule useCasesModule;
 
@@ -21,6 +23,8 @@ class RestApiModuleImpl implements RestApiModule {
 
   @Override
   public Javalin javalin() {
+
+
     return Javalin.create(cfg -> cfg.jsonMapper(jsonMapper()))
       .post("/api/v1/notification", ctx -> {
         final SendNotificationRequest request = ctx.bodyStreamAsClass(SendNotificationRequest.class);
@@ -29,6 +33,16 @@ class RestApiModuleImpl implements RestApiModule {
       .get("/console/chats", ctx -> {
         ctx.contentType("application/json");
         ctx.json(useCasesModule.getChatsUseCase().getChats());
+      })
+      .patch("/console/chat/{chatId}", ctx -> {
+        final Long chatId = ctx.pathParamAsClass("chatId", Long.class).get();
+        final ChangeChatStatusRequest changeChatStatusRequest = ctx.bodyAsClass(ChangeChatStatusRequest.class);
+        final Chat changedChat = useCasesModule.changeChatStatusUseCase().change(chatId, changeChatStatusRequest.status());
+        final ChangeChatStatusResponse response = new ChangeChatStatusResponse(
+          chatId, changedChat.title(), changedChat.type(), changedChat.status().name(), changedChat.subscriptions()
+        );
+        ctx.contentType("application/json");
+        ctx.json(response);
       });
   }
 
