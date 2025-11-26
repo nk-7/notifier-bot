@@ -1,0 +1,6 @@
+bot:
+  token: SECRET
+rocksdb:
+  path: ./database
+http:
+  port: 8080
