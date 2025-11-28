@@ -2,18 +2,15 @@ package dev.nk7.bot.notifier.modules;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import dev.nk7.bot.notifier.api.ChangeChatStatusRequest;
-import dev.nk7.bot.notifier.api.ChangeChatStatusResponse;
-import dev.nk7.bot.notifier.api.ChatDto;
-import dev.nk7.bot.notifier.api.SendNotificationRequest;
-import dev.nk7.bot.notifier.core.model.Chat;
+import dev.nk7.bot.notifier.handler.ChangeChatStatusHandler;
+import dev.nk7.bot.notifier.handler.GetChatsHandler;
+import dev.nk7.bot.notifier.handler.SendNotificationHandler;
 import io.javalin.Javalin;
+import io.javalin.http.Handler;
 import io.javalin.json.JavalinJackson;
 import io.javalin.json.JsonMapper;
 
 import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 class RestApiModuleImpl implements RestApiModule {
 
@@ -26,33 +23,9 @@ class RestApiModuleImpl implements RestApiModule {
   @Override
   public Javalin javalin() {
     return Javalin.create(cfg -> cfg.jsonMapper(jsonMapper()))
-      .post("/api/v1/notification", ctx -> {
-        final SendNotificationRequest request = ctx.bodyStreamAsClass(SendNotificationRequest.class);
-        useCasesModule.sendNotificationUseCase().sendNotification(request.text(), request.tags());
-      })
-      .get("/console/chats", ctx -> {
-        final Set<Chat> chats = useCasesModule.getChatsUseCase().getChats();
-        final Set<ChatDto> chatDtoSet = chats.stream()
-          .map(c -> new ChatDto(
-            c.chatId(),
-            c.title(),
-            c.type(),
-            c.status().name(),
-            c.subscriptions())
-          ).collect(Collectors.toSet());
-        ctx.contentType("application/json");
-        ctx.json(chatDtoSet);
-      })
-      .patch("/console/chat/{chatId}", ctx -> {
-        final Long chatId = ctx.pathParamAsClass("chatId", Long.class).get();
-        final ChangeChatStatusRequest changeChatStatusRequest = ctx.bodyAsClass(ChangeChatStatusRequest.class);
-        final Chat changedChat = useCasesModule.changeChatStatusUseCase().change(chatId, changeChatStatusRequest.status());
-        final ChangeChatStatusResponse response = new ChangeChatStatusResponse(
-          chatId, changedChat.title(), changedChat.type(), changedChat.status().name(), changedChat.subscriptions()
-        );
-        ctx.contentType("application/json");
-        ctx.json(response);
-      });
+      .post("/api/v1/notification", sendNotificationHandler())
+      .get("/console/chats", getChatsHandler())
+      .patch("/console/chat/{chatId}", changeChatStatusHandler());
   }
 
 
@@ -62,6 +35,19 @@ class RestApiModuleImpl implements RestApiModule {
         .enable(SerializationFeature.INDENT_OUTPUT),
       false
     );
+  }
+
+
+  private Handler getChatsHandler() {
+    return new GetChatsHandler(useCasesModule.getChatsUseCase());
+  }
+
+  private Handler sendNotificationHandler() {
+    return new SendNotificationHandler(useCasesModule.sendNotificationUseCase());
+  }
+
+  private Handler changeChatStatusHandler() {
+    return new ChangeChatStatusHandler(useCasesModule.changeChatStatusUseCase());
   }
 
 
