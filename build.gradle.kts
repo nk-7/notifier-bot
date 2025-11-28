@@ -1,23 +1,18 @@
 plugins {
   id("java")
+  alias(libs.plugins.jib) apply false
 }
 allprojects {
   group = "dev.nk7"
   version = "1.0.0-SNAPSHOT"
-}
 
-repositories {
-  mavenCentral()
-}
-
-tasks {
-  test {
-    useJUnitPlatform()
+  repositories {
+    mavenCentral()
   }
 }
-
 subprojects {
   group = project.group
+  version = project.version
 
   apply {
     plugin("java")

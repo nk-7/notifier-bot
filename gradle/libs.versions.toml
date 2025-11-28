@@ -17,6 +17,7 @@ jetty = "12.1.1"
 javalin = "6.7.0"
 commons-configuration2 = "2.12.0"
 snakeyaml = "2.5"
+jib = "3.5.1"
 
 
 [libraries]
@@ -106,6 +107,7 @@ tinkoff-java-sdk-core = { module = "ru.tinkoff.piapi:java-sdk-core", version.ref
 
 [plugins]
 spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
+jib = { id = "com.google.cloud.tools.jib", version.ref = "jib" }
 
 [bundles]
 test = [
