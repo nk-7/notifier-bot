@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import dev.nk7.bot.notifier.api.ChangeChatStatusRequest;
 import dev.nk7.bot.notifier.api.ChangeChatStatusResponse;
+import dev.nk7.bot.notifier.api.ChatDto;
 import dev.nk7.bot.notifier.api.SendNotificationRequest;
 import dev.nk7.bot.notifier.core.model.Chat;
 import io.javalin.Javalin;
@@ -11,6 +12,8 @@ import io.javalin.json.JavalinJackson;
 import io.javalin.json.JsonMapper;
 
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 class RestApiModuleImpl implements RestApiModule {
 
@@ -18,21 +21,27 @@ class RestApiModuleImpl implements RestApiModule {
 
   RestApiModuleImpl(UseCasesModule useCasesModule) {
     this.useCasesModule = Objects.requireNonNull(useCasesModule);
-
   }
 
   @Override
   public Javalin javalin() {
-
-
     return Javalin.create(cfg -> cfg.jsonMapper(jsonMapper()))
       .post("/api/v1/notification", ctx -> {
         final SendNotificationRequest request = ctx.bodyStreamAsClass(SendNotificationRequest.class);
         useCasesModule.sendNotificationUseCase().sendNotification(request.text(), request.tags());
       })
       .get("/console/chats", ctx -> {
+        final Set<Chat> chats = useCasesModule.getChatsUseCase().getChats();
+        final Set<ChatDto> chatDtoSet = chats.stream()
+          .map(c -> new ChatDto(
+            c.chatId(),
+            c.title(),
+            c.type(),
+            c.status().name(),
+            c.subscriptions())
+          ).collect(Collectors.toSet());
         ctx.contentType("application/json");
-        ctx.json(useCasesModule.getChatsUseCase().getChats());
+        ctx.json(chatDtoSet);
       })
       .patch("/console/chat/{chatId}", ctx -> {
         final Long chatId = ctx.pathParamAsClass("chatId", Long.class).get();
