@@ -1,7 +1,7 @@
 package dev.nk7.bot.notifier.modules;
 
 import dev.nk7.bot.notifier.core.port.in.AddNewChatUseCase;
-import dev.nk7.bot.notifier.core.port.in.ChangeChatStatusUseCase;
+import dev.nk7.bot.notifier.core.port.in.ChangeChatUseCase;
 import dev.nk7.bot.notifier.core.port.in.GetChatsUseCase;
 import dev.nk7.bot.notifier.core.port.in.SendNotificationUseCase;
 
@@ -11,7 +11,7 @@ public interface UseCasesModule {
 
   AddNewChatUseCase addNewChatUseCase();
 
-  ChangeChatStatusUseCase changeChatStatusUseCase();
+  ChangeChatUseCase changeChatStatusUseCase();
 
   GetChatsUseCase getChatsUseCase();
   static UseCasesModule of(RepositoriesModule repositoriesModule, ServicesModule servicesModule) {

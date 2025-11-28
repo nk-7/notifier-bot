@@ -1,7 +1,7 @@
 package dev.nk7.bot.notifier.modules;
 
 import dev.nk7.bot.notifier.core.port.in.AddNewChatUseCase;
-import dev.nk7.bot.notifier.core.port.in.ChangeChatStatusUseCase;
+import dev.nk7.bot.notifier.core.port.in.ChangeChatUseCase;
 import dev.nk7.bot.notifier.core.port.in.GetChatsUseCase;
 import dev.nk7.bot.notifier.core.port.in.SendNotificationUseCase;
 
@@ -37,8 +37,8 @@ class UseCasesModuleImpl implements UseCasesModule {
   }
 
   @Override
-  public ChangeChatStatusUseCase changeChatStatusUseCase() {
-    return new dev.nk7.bot.notifier.core.usecase.ChangeChatStatusUseCase(
+  public ChangeChatUseCase changeChatStatusUseCase() {
+    return new dev.nk7.bot.notifier.core.usecase.ChangeChatUseCase(
       repositoriesModule.chatRepository()
     );
   }

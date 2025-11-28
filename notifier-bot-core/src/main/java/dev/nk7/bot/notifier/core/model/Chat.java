@@ -36,6 +36,10 @@ public record Chat(
     return new Chat(chatId, title, type, newStatus, subscriptions);
   }
 
+  public Chat withSubscriptions(Set<String> subscriptions) {
+    return new Chat(chatId, title, type, status, subscriptions);
+  }
+
   @Override
   public boolean equals(Object o) {
     if (o == null || getClass() != o.getClass()) return false;

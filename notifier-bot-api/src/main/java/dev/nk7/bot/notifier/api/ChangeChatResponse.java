@@ -2,7 +2,7 @@ package dev.nk7.bot.notifier.api;
 
 import java.util.Set;
 
-public record ChangeChatStatusResponse(
+public record ChangeChatResponse(
   Long chatId,
   String title,
   String type,

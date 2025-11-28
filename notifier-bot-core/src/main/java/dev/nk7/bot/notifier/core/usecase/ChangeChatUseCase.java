@@ -6,17 +6,18 @@ import dev.nk7.bot.notifier.core.port.out.repository.ChatRepository;
 
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
-public class ChangeChatStatusUseCase implements dev.nk7.bot.notifier.core.port.in.ChangeChatStatusUseCase {
+public class ChangeChatUseCase implements dev.nk7.bot.notifier.core.port.in.ChangeChatUseCase {
 
   private final ChatRepository chatRepository;
 
-  public ChangeChatStatusUseCase(ChatRepository chatRepository) {
+  public ChangeChatUseCase(ChatRepository chatRepository) {
     this.chatRepository = Objects.requireNonNull(chatRepository);
   }
 
   @Override
-  public Chat change(Long chatId, String status) {
+  public Chat change(Long chatId, String status, Set<String> subscriptions) {
     final Optional<Chat> chatOpt = chatRepository.findByChatId(chatId);
     if (chatOpt.isEmpty()) {
       return null;
@@ -25,8 +26,9 @@ public class ChangeChatStatusUseCase implements dev.nk7.bot.notifier.core.port.i
     if (chatStatus == null) {
       return null;
     }
-
-    final Chat chat = chatOpt.get().withStatus(chatStatus);
+    final Chat chat = chatOpt.get()
+      .withStatus(chatStatus)
+      .withSubscriptions(subscriptions);
     chatRepository.save(chat);
     return chat;
   }

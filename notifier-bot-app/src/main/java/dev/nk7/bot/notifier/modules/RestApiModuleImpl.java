@@ -2,7 +2,7 @@ package dev.nk7.bot.notifier.modules;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import dev.nk7.bot.notifier.handler.ChangeChatStatusHandler;
+import dev.nk7.bot.notifier.handler.ChangeChatHandler;
 import dev.nk7.bot.notifier.handler.GetChatsHandler;
 import dev.nk7.bot.notifier.handler.SendNotificationHandler;
 import io.javalin.Javalin;
@@ -47,7 +47,7 @@ class RestApiModuleImpl implements RestApiModule {
   }
 
   private Handler changeChatStatusHandler() {
-    return new ChangeChatStatusHandler(useCasesModule.changeChatStatusUseCase());
+    return new ChangeChatHandler(useCasesModule.changeChatStatusUseCase());
   }
 
 
